@@ -1,9 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import plotly.graph_objects as go
-from scipy import stats
 import warnings
 warnings.filterwarnings('ignore')
 
