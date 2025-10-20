@@ -1,3 +1,4 @@
+```python
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -192,6 +193,9 @@ def calculate_risk_metrics(initial_capital, target_profit_percent, profit_per_tr
         max_trades=max_trades or 1000
     )
     
+    # استفاده از تعداد معاملات تئوریک به جای تعداد معاملات شبیه‌سازی شده
+    required_trades = exact_trades if expected_return > 0 else trades_count
+    
     # محاسبه وین‌ریت مؤثر (حداقل وین‌ریت برای سودآوری)
     if profit_per_trade > 0 and loss_per_trade > 0:
         effective_win_rate = (loss_per_trade / (profit_per_trade + loss_per_trade)) * 100
@@ -221,7 +225,7 @@ def calculate_risk_metrics(initial_capital, target_profit_percent, profit_per_tr
     # زمان تقریبی
     estimated_time = ""
     if trades_per_period and trades_per_period > 0:
-        periods_needed = trades_count / trades_per_period
+        periods_needed = required_trades / trades_per_period
         if periods_needed < 1:
             estimated_time = "کمتر از 1 دوره"
         else:
@@ -256,7 +260,7 @@ def calculate_risk_metrics(initial_capital, target_profit_percent, profit_per_tr
         warnings_list.append("💥 سرمایه شما به صفر رسید")
 
     return {
-        'required_trades': trades_count,
+        'required_trades': required_trades,
         'reached_target': reached_target,
         'final_capital': final_capital,
         'target_capital': target_capital_value,
@@ -674,3 +678,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
